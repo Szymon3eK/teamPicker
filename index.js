@@ -7,7 +7,14 @@ const setActivity = require('./functions/setActivity');
 const registerCommands = require('./functions/registerCommands');
 const commandteam = require('./commands/team.js');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ 	
+    intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
+    ], 
+});
 
 client.on('ready', () => {
     console.log(`Wlaczono bota: ${client.user.tag}`);
