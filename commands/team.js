@@ -7,7 +7,7 @@ module.exports = async (client, interaction) => {
     if(!userChannel) return interaction.reply({ content: 'Musisz być na kanale głosowym!', ephemeral: true });
     let usersInChannel = KnuthShuffle(client.channels.cache.get(userChannel.id).members.map(m => m.user.id));
 
-    if(usersInChannel.length % 2 == 1) return interaction.reply({ content: 'Mordko, musi byc parzysta liczba osob na kanale', ephemeral: true });
+    if(usersInChannel.length % 2 == 1) return interaction.reply({ content: `Mordko, musi byc parzysta liczba osob na kanale (Na kanale jest ${usersInChannel.length} osob)`, ephemeral: true });
 
     let team1 = "";
     let team2 = "";
