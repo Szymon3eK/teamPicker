@@ -17,10 +17,10 @@ module.exports = async (client, interaction) => {
         else team2 += ` - <@${user}>\n`;
     })
 
-    const embed = new EmbedBuilder()
+    let embed = new EmbedBuilder()
         .setTitle('Wylosowano drużyny!')
         .setColor('#0099ff')
-        .setDescription(`Na kanale **${userChannel.name}** wywolane przez: **${interaction.user.tag}**`)
+        .setDescription(`Na kanale glosowym **${userChannel.name}** wywolane przez: **${interaction.user.tag}**`)
         .addFields(
             { name: 'Druzyna 1', value: team1, inline: false},
             { name: '\u200B', value: '\u200B' },
