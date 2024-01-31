@@ -17,6 +17,9 @@ const client = new Client({
     ], 
 });
 
+
+const checkEmptyChannel = require('./events/checkEmptyChannel')(client);
+
 client.on('ready', () => {
     console.log(`Wlaczono bota: ${client.user.tag}`);
     setActivity(client, config);

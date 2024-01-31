@@ -1,10 +1,17 @@
-const { EmbedBuilder  } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
+const KnuthShuffle = require('../functions/knuthShuffle');
+const CreateChannel = require('../functions/createChannel');
 
 module.exports = async (client, interaction) => {
 
-    let userChannel = interaction.member.voice.channel;
+
+    let userChannel = await interaction.member.voice.channel;
 
     if(!userChannel) return interaction.reply({ content: 'Musisz być na kanale głosowym!', ephemeral: true });
+
+    if(userChannel.name == 'teampicker-team-1' || userChannel.name == 'teampicker-team-2') return interaction.reply({ content: 'Nie mozesz wywolac komendy na kanale druzyn!', ephemeral: true });
+
+
     let usersInChannel = KnuthShuffle(client.channels.cache.get(userChannel.id).members.map(m => m.user.id));
 
     if(usersInChannel.length % 2 == 1) return interaction.reply({ content: `Mordko, musi byc parzysta liczba osob na kanale (Na kanale jest ${usersInChannel.length} osob)`, ephemeral: true });
@@ -12,12 +19,20 @@ module.exports = async (client, interaction) => {
     let team1 = "";
     let team2 = "";
 
+    let team1Arr = [];
+    let team2Arr = [];
+
     usersInChannel.forEach((user, index) => {
-        if(index < usersInChannel.length / 2) team1 += ` - <@${user}>\n`;
-        else team2 += ` - <@${user}>\n`;
+        if(index < usersInChannel.length / 2) {
+            team1 += ` - <@${user}>\n`;
+            team1Arr.push(user);
+        } else {
+            team2 += ` - <@${user}>\n`;
+            team2Arr.push(user);
+        }
     })
 
-    let embed = new EmbedBuilder()
+    const embed = new EmbedBuilder()
         .setTitle('Wylosowano drużyny!')
         .setColor('#0099ff')
         .setDescription(`Na kanale glosowym **${userChannel.name}** wywolane przez: **${interaction.user.tag}**`)
@@ -28,7 +43,17 @@ module.exports = async (client, interaction) => {
         )
         .setTimestamp();
 
-    interaction.reply({ embeds: [embed] });
+
+    const startembed = new EmbedBuilder()
+        .setDescription('Za 5 sekund przenose was na inne kanaly!')
+        .setColor('#0099ff')
+        .setTimestamp();
+
+    interaction.reply({ embeds: [embed, startembed] });
+
+    setTimeout(() => {
+        CreateChannel(team1Arr, team2Arr, client, interaction, userChannel, (usersInChannel.length / 2));
+    }, 5000)
 
 
     
@@ -36,19 +61,4 @@ module.exports = async (client, interaction) => {
 
 
 
-}
-
-function KnuthShuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (0 !== currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
 }
