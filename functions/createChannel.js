@@ -1,4 +1,5 @@
 const { EmbedBuilder, ChannelType } = require('discord.js');
+const config = require('../config.json');
 
 module.exports = async (team1, team2, client, interaction, userChannel, slotsPerTeam) => {
     const guild = interaction.guild;
@@ -33,7 +34,7 @@ module.exports = async (team1, team2, client, interaction, userChannel, slotsPer
 
 
     const startembed = new EmbedBuilder()
-    .setDescription('Podzielono wszystkich na kanaly! **GL HF** 🥰')
+    .setDescription(`Podzielono wszystkich na kanaly! **GL HF** 🥰 \n *${config.src}`)
     .setColor('#37eb34')
     .setTimestamp();
 
