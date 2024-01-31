@@ -1,0 +1,9 @@
+{
+    "token": "token bota",
+    "client_id": "client id bota",
+    "src": "https://github.com/Szymon3eK/teamPicker",
+    "activites": {
+        "1": "pierwszy status (w grze)",
+        "2": "drugi status (w grze)"
+    }
+}
