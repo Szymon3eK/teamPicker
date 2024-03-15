@@ -1,0 +1,11 @@
+version: "1"
+services:
+  app:
+    build: .
+    image: node:21
+    restart: always
+    container_name: teamPicker
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules     
+

@@ -18,7 +18,8 @@
     "ws": "^8.14.2"
   },
   "scripts": {
-    "nodemon": "nodemon index.js"
+    "nodemon": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC"
